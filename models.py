@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text
-from database import Base  
+from database import Base 
+import json 
 
 # Definición del modelo User
 # Este modelo representa la tabla "users" en la base de datos.
@@ -30,3 +31,9 @@ class User(Base):
     # zip_code almacena el código postal del usuario como una cadena de texto.
     # Este campo también es opcional.
     zip_code = Column(String, nullable=True)
+
+    def set_recommendations(self, recommendations:list):
+        self.recommendations = json.dumps(recommendations)
+
+    def get_recommendarions(self):
+        return json.loads(self.recommendations) if self.recommendations else []
